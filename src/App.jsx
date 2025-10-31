@@ -59,116 +59,107 @@ export default function App() {
           <Route
             path="/"
             element={
+                  
               <>
                 <Hero />
 
+                <section className="px-6 py-16 bg-gray-100 dark:bg-gray-700 text-center">
+                  <h2 className="text-3xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">
+                    🔥 Trending Categories
+                  </h2>
 
+                  <p className="text-gray-600 dark:text-gray-300 mb-8">
+                    Explore the most loved product types this season!
+                  </p>
 
-               <section className="px-6 py-16 bg-gray-100 dark:bg-gray-700 text-center">
-  <h2 className="text-3xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">
-    🔥 Trending Categories
-  </h2>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                    {[
+                      {
+                        name: "Smartphones",
+                        category: "smartphones",
+                        img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800",
+                      },
+                      {
+                        name: "Laptops",
+                        category: "laptops",
+                        img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
+                      },
+                      {
+                        name: "Fragrances",
+                        category: "fragrances",
+                        img: "https://images.pexels.com/photos/965981/pexels-photo-965981.jpeg",
+                      },
+                      {
+                        name: "Skincare",
+                        category: "skincare",
+                        img: "https://images.pexels.com/photos/3735654/pexels-photo-3735654.jpeg",
+                      },
+                      {
+                        name: "Groceries",
+                        category: "groceries",
+                        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
+                      },
 
-  <p className="text-gray-600 dark:text-gray-300 mb-8">
-    Explore the most loved product types this season!
-  </p>
+                      {
+                        name: "Beauty",
+                        category: "beauty",
+                        img: "https://images.unsplash.com/photo-1500839941678-aae14dbfae9a?w=800",
+                      },
+                      {
+                        name: "Home Decoration",
+                        category: "home-decoration",
+                        img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800",
+                      },
+                      {
+                        name: "Furniture",
+                        category: "furniture",
+                        img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800",
+                      },
 
-  <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                      {
+                        name: "Mens Shirts",
+                        category: "mens-shirts",
+                        img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800",
+                      },
+                      {
+                        name: "Mens Shoes",
+                        category: "mens-shoes",
+                        img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+                      },
 
-    {[
-      {
-        name: "Smartphones",
-        category: "smartphones",
-        img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
-      },
-      {
-        name: "Laptops",
-        category: "laptops",
-        img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800"
-      },
-      {
-        name: "Fragrances",
-        category: "fragrances",
-        img: "https://images.pexels.com/photos/965981/pexels-photo-965981.jpeg"
-      },
-      {
-        name: "Skincare",
-        category: "skincare",
-        img: "https://images.pexels.com/photos/3735654/pexels-photo-3735654.jpeg"
-      },
-      {
-        name: "Groceries",
-        category: "groceries",
-        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800"
-      },
+                      {
+                        name: "Womens Dresses",
+                        category: "womens-dresses",
+                        img: "https://images.unsplash.com/photo-1542060748-10c28b62716f?w=800",
+                      },
+                      {
+                        name: "Sunglasses",
+                        category: "sunglasses",
+                        img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800",
+                      },
 
-      {
-        name: "Beauty",
-        category: "beauty",
-        img: "https://images.unsplash.com/photo-1500839941678-aae14dbfae9a?w=800"
-      },
-      {
-        name: "Home Decoration",
-        category: "home-decoration",
-        img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800"
-      },
-      {
-        name: "Furniture",
-        category: "furniture",
-        img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800"
-      },
-
-      {
-        name: "Mens Shirts",
-        category: "mens-shirts",
-        img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800"
-      },
-      {
-        name: "Mens Shoes",
-        category: "mens-shoes",
-        img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800"
-      },
-
-      {
-        name: "Womens Dresses",
-        category: "womens-dresses",
-        img: "https://images.unsplash.com/photo-1542060748-10c28b62716f?w=800"
-      },
-      {
-        name: "Sunglasses",
-        category: "sunglasses",
-        img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800"
-      },
-
-      {
-        name: "Motorcycle",
-        category: "motorcycle",
-        img: "https://images.unsplash.com/photo-1518655048521-f130df041f66?w=800"
-      },
-
-    ].map((item, index) => (
-      <Link
-        key={index}
-        to={`/products?category=${item.category}`}
-        className="bg-white dark:bg-gray-500 p-4 rounded-2xl shadow hover:scale-105 transition block"
-      >
-        <img
-          src={item.img}
-          alt={item.name}
-          loading="lazy"
-          className="w-full h-32 object-cover rounded-xl"
-        />
-        <p className="mt-2 font-semibold">{item.name}</p>
-      </Link>
-    ))}
-
-  </div>
-</section>
-
-
-
-
-
+                      {
+                        name: "Motorcycle",
+                        category: "motorcycle",
+                        img: "https://images.unsplash.com/photo-1518655048521-f130df041f66?w=800",
+                      },
+                    ].map((item, index) => (
+                      <Link
+                        key={index}
+                        to={`/products?category=${item.category}`}
+                        className="bg-white dark:bg-gray-500 p-4 rounded-2xl shadow hover:scale-105 transition block"
+                      >
+                        <img
+                          src={item.img}
+                          alt={item.name}
+                          loading="lazy"
+                          className="w-full h-32 object-cover rounded-xl"
+                        />
+                        <p className="mt-2 font-semibold">{item.name}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
               </>
             }
           />
