@@ -5,7 +5,6 @@ export default function Products({ addToCart }) {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const category = params.get("category");
-
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -21,9 +20,6 @@ export default function Products({ addToCart }) {
       let baseURL = category
         ? `https://dummyjson.com/products/category/${category.toLowerCase().trim()}`
         : "https://dummyjson.com/products";
-
-
-
 
       const url = `${baseURL}?limit=${LIMIT}&skip=${skip}`;
       console.log("🔗 Fetching:", url);

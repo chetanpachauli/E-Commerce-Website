@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Products from "./components/Products";
@@ -58,8 +57,7 @@ export default function App() {
           {/* 🔹 Home Page */}
           <Route
             path="/"
-            element={
-                  
+            element={     
               <>
                 <Hero />
 
