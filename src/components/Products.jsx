@@ -4,56 +4,71 @@ import { Link, useLocation } from "react-router-dom";
 export default function Products({ addToCart }) {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+
   const category = params.get("category");
+  const searchTerm = params.get("search")?.toLowerCase() || "";
+
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   const [loading, setLoading] = useState(false);
-  const LIMIT = 20; // ✅ 20 products per load
+  const [noMore, setNoMore] = useState(false);  // ✅ NEW (no more items)
 
-  // ✅ Fetch products
+  const LIMIT = 20;
+
+  const getUrl = () => {
+    if (category) {
+      return `https://dummyjson.com/products/category/${category}?limit=${LIMIT}&skip=${skip}`;
+    }
+    return `https://dummyjson.com/products?limit=${LIMIT}&skip=${skip}`;
+  };
+
   const loadProducts = async () => {
-    if (loading) return;
+    if (loading || noMore) return;
 
     setLoading(true);
 
     try {
-      let baseURL = category
-        ? `https://dummyjson.com/products/category/${category.toLowerCase().trim()}`
-        : "https://dummyjson.com/products";
-
-      const url = `${baseURL}?limit=${LIMIT}&skip=${skip}`;
-      console.log("🔗 Fetching:", url);
-
-      const res = await fetch(url);
+      const res = await fetch(getUrl());
       const data = await res.json();
 
-      if (data.products?.length > 0) {
+      if (!data.products || data.products.length === 0) {
+        setNoMore(true); // ✅ NEW
+      } else {
         setProducts((prev) => [...prev, ...data.products]);
         setSkip((prev) => prev + LIMIT);
       }
-    } catch (err) {
-      console.error("❌ Error:", err);
+
+    } catch (error) {
+      console.log("❌ Fetch Error:", error);
     }
 
     setLoading(false);
   };
 
-  // ✅ Reset when category changes
   useEffect(() => {
     setProducts([]);
     setSkip(0);
+    setNoMore(false); // ✅ NEW
     loadProducts();
-  }, [category]);
+  }, [category, searchTerm]);
+
+  const filteredProducts = products.filter((p) =>
+    p.title.toLowerCase().includes(searchTerm)
+  );
 
   return (
     <section className="px-6 py-12">
+
       <h2 className="text-3xl font-bold mb-6">
-        {category ? `Category: ${category}` : "All Products"}
+        {category
+          ? `Category: ${category}`
+          : searchTerm
+          ? `Search: ${searchTerm}`
+          : "All Products"}
       </h2>
 
-      {/* ✅ PRODUCT GRID */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow hover:scale-105 transition"
@@ -78,26 +93,11 @@ export default function Products({ addToCart }) {
             </button>
           </div>
         ))}
-
-        {/* ✅ Skeleton Loading */}
-        {loading &&
-          Array(8)
-            .fill(null)
-            .map((_, i) => (
-              <div
-                key={i}
-                className="bg-gray-200 dark:bg-gray-600 p-4 rounded-lg animate-pulse"
-              >
-                <div className="w-full h-40 bg-gray-300 dark:bg-gray-500 rounded" />
-                <div className="h-4 bg-gray-300 dark:bg-gray-500 mt-3 rounded" />
-                <div className="h-4 w-1/2 bg-gray-300 dark:bg-gray-500 mt-2 rounded" />
-              </div>
-            ))}
       </div>
 
       {/* ✅ Load More Button */}
       <div className="text-center mt-8">
-        {!loading && (
+        {!loading && !noMore && (
           <button
             onClick={loadProducts}
             className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-lg"
@@ -107,12 +107,20 @@ export default function Products({ addToCart }) {
         )}
       </div>
 
-      {/* ✅ Loading Text */}
+      {/* ✅ Loading text */}
       {loading && (
         <p className="text-center mt-6 text-gray-500 dark:text-gray-300">
           Loading...
         </p>
       )}
+
+      {/* ✅ NO MORE ITEMS MESSAGE */}
+      {noMore && (
+        <p className="text-center mt-6 text-red-500 font-semibold text-lg">
+           No more items available!
+        </p>
+      )}
+
     </section>
   );
 }
